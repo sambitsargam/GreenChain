@@ -69,6 +69,11 @@ export default function Sender() {
     setNfts(items);
     setLoadingState("loaded");
   }
+
+  async function chat() {
+    // lets forward to the chat page
+    window.location.href = "/chat";
+  }
   async function recycle(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
     console.log("item id clicked is", nft.tokenId);
@@ -156,6 +161,15 @@ export default function Sender() {
                   onClick={() => recycle(nft)}
                 >
                   Recycle
+                </button>
+              </div>
+              <div className="p-2 bg-black">
+                <button
+                  type="button"
+                  className="mt-4 w-full bg-green-500 text-white font-bold py-2 px-12 rounded"
+                  onClick={() => chat()}
+                >
+                  Chat With Seller (Coming Soon)
                 </button>
               </div>
             </div>
