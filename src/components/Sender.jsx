@@ -38,6 +38,7 @@ export default function Sender() {
     );
     const data = await contract.fetchMarketItems();
     console.log("Waste data fetched from contract", data);
+    console.log("Owner of the nft is: ", data[0].seller);
     /*
      *  map over items returned from smart contract and format
      *  them as well as fetch their token metadata
@@ -61,6 +62,7 @@ export default function Sender() {
           country: meta.data.properties.country,
           collectionPoint: meta.data.properties.collectionPoint,
           weight: meta.data.properties.weight,
+          seller: meta.data.properties.seller,
         };
         console.log("item returned is ", item);
         return item;
@@ -86,7 +88,6 @@ export default function Sender() {
       Waste.abi,
       signer
     );
-
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     const transaction = await contract.createMarketSale(nft.tokenId, {
@@ -151,6 +152,10 @@ export default function Sender() {
                 </p>
                 <p className="text-xl font-bold text-white">
                   Price : {nft.price} MATIC
+                </p>
+                <p className="text-xl font-bold text-white">
+                  {" "}
+                  Seller: {nft.seller}
                 </p>
               </div>
 

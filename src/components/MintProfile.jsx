@@ -81,7 +81,7 @@ const MintWaste = () => {
       // await mintNFTTx.wait();
       return mintNFTTx;
     } catch (error) {
-      setErrorMessage("Failed to send tx to Polygon Mumbai.");
+      setErrorMessage("Failed to send tx to ZKEVM Polygon Testnet.");
       console.log(error);
     }
   };
@@ -164,7 +164,7 @@ const MintWaste = () => {
             onChange={(e) => updateFormInput({ ...formInput, weight: e.target.value })}
           />
           <input
-            placeholder="Price in MATIC, if free put 0"
+            placeholder="Price in ETH, if free then put 0"
             className="mt-5 border rounded p-4 text-xl"
             onChange={(e) => updateFormInput({ ...formInput, price: e.target.value })}
           />
