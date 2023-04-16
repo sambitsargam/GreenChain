@@ -66,7 +66,7 @@ const MintWaste = () => {
 
   const sendTxToBlockchain = async (metadata) => {
     try {
-      setTxStatus("Adding transaction to KEVM Polygon Testnet Blockchain.");
+      setTxStatus("Adding transaction to Polygon Mumbai Blockchain.");
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
       const provider = new ethers.providers.Web3Provider(connection);
@@ -81,7 +81,7 @@ const MintWaste = () => {
       // await mintNFTTx.wait();
       return mintNFTTx;
     } catch (error) {
-      setErrorMessage("Failed to send tx to  ZKEVM Polygon Testnet.");
+      setErrorMessage("Failed to send tx to Polygon Mumbai.");
       console.log(error);
     }
   };
@@ -92,7 +92,7 @@ const MintWaste = () => {
     console.log("image ipfs path is", imgViewString);
     setImageView(imgViewString);
     setMetaDataURl(getIPFSGatewayURL(metaData.url));
-    setTxURL(`https://testnet-zkevm.polygonscan.com/tx/${mintNFTTx.hash}`);
+    setTxURL(`https://blockscout.scroll.io/address/tx/${mintNFTTx.hash}`);
     setTxStatus("Waste registration was successfully!");
     console.log("Preview details completed");
   };
@@ -164,7 +164,7 @@ const MintWaste = () => {
             onChange={(e) => updateFormInput({ ...formInput, weight: e.target.value })}
           />
           <input
-            placeholder="Price in ETH, if free put 0"
+            placeholder="Price in MATIC, if free put 0"
             className="mt-5 border rounded p-4 text-xl"
             onChange={(e) => updateFormInput({ ...formInput, price: e.target.value })}
           />

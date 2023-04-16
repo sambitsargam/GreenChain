@@ -25,7 +25,7 @@ const onboard = Onboard({
     },
   ],
   appMetadata: {
-    name: "RECYCLE",
+    name: "GREENCHAIN",
     icon: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
     logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
     description: "Recycle waste and save our enviroment",
