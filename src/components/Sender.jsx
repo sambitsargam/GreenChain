@@ -62,7 +62,7 @@ export default function Sender() {
           country: meta.data.properties.country,
           collectionPoint: meta.data.properties.collectionPoint,
           weight: meta.data.properties.weight,
-          seller: meta.data.properties.seller,
+          seller: meta.data.seller,
         };
         console.log("item returned is ", item);
         return item;
@@ -71,10 +71,13 @@ export default function Sender() {
     setNfts(items);
     setLoadingState("loaded");
   }
+  // function chat that forward with a postfix of seller address with a url
+  async function chat(nft) {
+    const sellerAddress = nft.seller;
+    const url = `https://chat-greenchain.vercel.app/dm/${sellerAddress}`;
 
-  async function chat() {
-    // lets forward to the chat page
-    window.location.href = "/chat";
+    // send the user to the chat URL
+    window.location.href = url;
   }
   async function recycle(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
@@ -151,11 +154,7 @@ export default function Sender() {
                   Weight(Kg): {nft.weight}
                 </p>
                 <p className="text-xl font-bold text-white">
-                  Price : {nft.price} MATIC
-                </p>
-                <p className="text-xl font-bold text-white">
-                  {" "}
-                  Seller: {nft.seller}
+                  Price : {nft.price} ETH
                 </p>
               </div>
 
@@ -172,9 +171,9 @@ export default function Sender() {
                 <button
                   type="button"
                   className="mt-4 w-full bg-green-500 text-white font-bold py-2 px-12 rounded"
-                  onClick={() => chat()}
+                  onClick={() => chat(nft)}
                 >
-                  Chat With Seller (Coming Soon)
+                  Chat With Seller
                 </button>
               </div>
             </div>

@@ -26,7 +26,7 @@ const MintWaste = () => {
   const [metaDataURL, setMetaDataURl] = useState();
   const [txURL, setTxURL] = useState();
   const [txStatus, setTxStatus] = useState();
-  const [formInput, updateFormInput] = useState({ name: "plastic", description: "", country: "", weight: "", collectionPoint: "", price: "" });
+  const [formInput, updateFormInput] = useState({ name: "plastic", description: "", seller: "", country: "", weight: "", collectionPoint: "", price: "" });
 
   const handleFileUpload = (event) => {
     console.log("file for upload selected...");
@@ -36,8 +36,16 @@ const MintWaste = () => {
     setMetaDataURl("");
     setTxURL("");
   };
-
+  const connectWallet = async () => {
+    const accounts = await window.ethereum.request({
+      method: "eth_accounts",
+    });
+    return accounts[0];
+  };
   const uploadNFTContent = async (inputFile) => {
+    // connect wallet address
+    const seller = await connectWallet();
+    console.log("Connected address is: ", seller);
     const { name, description, country, weight, collectionPoint, price } = formInput;
     if (!name || !description || !country || !weight || !collectionPoint || !inputFile) return;
     const nftStorage = new NFTStorage({ token: APIKEY, });
@@ -47,6 +55,7 @@ const MintWaste = () => {
       const metaData = await nftStorage.store({
         name,
         description,
+        seller,
         image: inputFile,
         properties: {
           country,
