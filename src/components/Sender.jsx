@@ -28,7 +28,7 @@ export default function Sender() {
   // const rpcUrl = "http://localhost:8545";
 
   // eslint-disable-next-line space-before-blocks
-  async function BackupToOorts(){
+  async function BackupToOorts(nft){
     /* create a generic provider and query for Wastes */
     const provider = new ethers.providers.JsonRpcProvider(
       "https://rpc.public.zkevm-test.net"
@@ -63,6 +63,7 @@ export default function Sender() {
         return item;
       })
     );
+    const token = nft.tokenId;
     const dataString = JSON.stringify(items);
     const s3 = new AWS.S3({
       accessKeyId: "J7N6A0KD9MWBXFHJHVE6",
@@ -73,9 +74,10 @@ export default function Sender() {
       signatureVersion: "v4", // Use AWS v4 signature authentication
       sslEnabled: true,
     });
+    const tokens = `${token}_data_backup.json`;
     const params = {
       Bucket: "nft-backup",
-      Key: "data-backup.json", // Change to your preferred file name and extension
+      Key: tokens, // Change to your preferred file name and extension
       Body: dataString /* Change to your preferred file content */,
     };
     // Upload file to S3 bucket
@@ -173,7 +175,7 @@ export default function Sender() {
       signer
     );
     /* user will be prompted to pay the asking proces to complete the transaction */
-    await BackupToOorts();
+    await BackupToOorts(nft);
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     const transaction = await contract.createMarketSale(nft.tokenId, {
       value: price,
