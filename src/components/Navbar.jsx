@@ -27,7 +27,7 @@ const Navbar = () => {
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
         <li className="text-black font-semibold bg-green-300 py-5 px-20 mx-14 rounded-full cursor-pointer hover:bg-green-800 hover:text-white">
-          <a href="https://testnet-zkevm.polygonscan.com/address/0x69c0168573d68e58f894c0fe4793c0ce7974c870" target="_blank" rel="noreferrer">
+          <a href="https://testnet-zkevm.polygonscan.com/address/0x30B962f22A7C8D9f980fEc3670dbb44dc17B5BcB" target="_blank" rel="noreferrer">
             Contract Address
           </a>
         </li>
