@@ -6,7 +6,7 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import Web3Modal from "web3modal";
 // eslint-disable-next-line import/no-unresolved
-import AWS from "https://sdk.amazonaws.com/js/aws-sdk-2.1360.0.min.js";
+import AWS from "aws-sdk";
 import Waste from "../utils/Waste.json";
 import { wastemarketplaceAddress } from "../../config";
 
