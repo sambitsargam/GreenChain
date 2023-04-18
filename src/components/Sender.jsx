@@ -174,7 +174,7 @@ export default function Sender() {
       signer
     );
     /* user will be prompted to pay the asking proces to complete the transaction */
-    BackupToOorts();
+    await BackupToOorts();
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     const transaction = await contract.createMarketSale(nft.tokenId, {
       value: price,
