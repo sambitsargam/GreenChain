@@ -39,7 +39,31 @@ export default function Sender() {
       provider
     );
     const data = await contract.fetchMarketItems();
-    const dataString = JSON.stringify(data);
+    const items = await Promise.all(
+      data.map(async (i) => {
+        const tokenUri = await contract.tokenURI(i.tokenId);
+        console.log("token Uri is ", tokenUri);
+        const httpUri = getIPFSGatewayURL(tokenUri);
+        console.log("Http Uri is ", httpUri);
+        const meta = await axios.get(httpUri);
+        const price = ethers.utils.formatUnits(i.price.toString(), "ether");
+
+        const item = {
+          price,
+          tokenId: i.tokenId.toNumber(),
+          image: getIPFSGatewayURL(meta.data.image),
+          name: meta.data.name,
+          description: meta.data.description,
+          country: meta.data.properties.country,
+          collectionPoint: meta.data.properties.collectionPoint,
+          weight: meta.data.properties.weight,
+          seller: meta.data.seller,
+        };
+        console.log("item returned is ", item);
+        return item;
+      })
+    );
+    const dataString = JSON.stringify(items);
     const s3 = new AWS.S3({
       accessKeyId: "J7N6A0KD9MWBXFHJHVE6",
       secretAccessKey: "kQlSN6dCljQAEYXcveIV6zjsZRb4OPeURaBZVpcv",
@@ -52,7 +76,7 @@ export default function Sender() {
     const params = {
       Bucket: "nft-backup",
       Key: "data-backup.json", // Change to your preferred file name and extension
-      Body: data
+      Body: dataString /* Change to your preferred file content */,
     };
     // Upload file to S3 bucket
     // Use CORS proxy to bypass CORS policy
@@ -79,7 +103,7 @@ export default function Sender() {
         xhr.onerror = () => {
           console.log("File upload failed.");
         };
-        xhr.send(data);
+        xhr.send(dataString);
       }
     });
   }
