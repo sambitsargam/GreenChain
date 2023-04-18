@@ -1,8 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* pages/index.js */
-import React from 'react';
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import Web3Modal from "web3modal";
