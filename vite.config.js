@@ -8,6 +8,11 @@ const outDir = resolve(__dirname, "dist");
 // https://vitejs.dev/config/
 export default defineConfig({
   root,
+  resolve: {
+    alias: {
+      "./runtimeConfig": "./runtimeConfig.browser"
+    }
+  },
   plugins: [react()],
   build: {
     outDir,
