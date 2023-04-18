@@ -136,6 +136,7 @@ export default function Sender() {
     });
     await transaction.wait();
     console.log("waste transaction completed, waste should show in UI ");
+    console.log("Data backup uploaded successfully.");
     const token = nft.tokenId;
     console.log("token id is ", token);
     loadWaste();
