@@ -6,7 +6,6 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import Web3Modal from "web3modal";
 // eslint-disable-next-line import/no-unresolved
-import AWS from "aws-sdk";
 import Waste from "../utils/Waste.json";
 import { wastemarketplaceAddress } from "../../config";
 
@@ -28,41 +27,41 @@ export default function Sender() {
   // const rpcUrl = "http://localhost:8545";
 
   // eslint-disable-next-line space-before-blocks
-  async function BackupToOorts(){
-    /* create a generic provider and query for Wastes */
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://rpc.public.zkevm-test.net"
-    );
-    const contract = new ethers.Contract(
-      wastemarketplaceAddress,
-      Waste.abi,
-      provider
-    );
-    const data = await contract.fetchMarketItems();
-    const dataString = JSON.stringify(data);
-    const s3 = new AWS.S3({
-      accessKeyId: "J7N6A0KD9MWBXFHJHVE6",
-      secretAccessKey: "kQlSN6dCljQAEYXcveIV6zjsZRb4OPeURaBZVpcv",
-      endpoint: "https://s3-standard.oortech.com",
-      region: "us-east-1", // Change to your preferred region
-      s3ForcePathStyle: true, // Needed for compatibility with some S3-compatible APIs
-      signatureVersion: "v4", // Use AWS v4 signature authentication
-      sslEnabled: true,
-    });
-    const params = {
-      Bucket: "my-bucket",
-      Key: "data-backup.json", // Change to your preferred file name and extension
-      Body: dataString
-    };
-    // Upload file to S3 bucket
-    s3.putObject(params, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Data backup uploaded successfully.");
-      }
-    });
-  }
+  // async function BackupToOorts(){
+  //   /* create a generic provider and query for Wastes */
+  //   const provider = new ethers.providers.JsonRpcProvider(
+  //     "https://rpc.public.zkevm-test.net"
+  //   );
+  //   const contract = new ethers.Contract(
+  //     wastemarketplaceAddress,
+  //     Waste.abi,
+  //     provider
+  //   );
+  //   const data = await contract.fetchMarketItems();
+  //   const dataString = JSON.stringify(data);
+  //   const s3 = new AWS.S3({
+  //     accessKeyId: "J7N6A0KD9MWBXFHJHVE6",
+  //     secretAccessKey: "kQlSN6dCljQAEYXcveIV6zjsZRb4OPeURaBZVpcv",
+  //     endpoint: "https://s3-standard.oortech.com",
+  //     region: "us-east-1", // Change to your preferred region
+  //     s3ForcePathStyle: true, // Needed for compatibility with some S3-compatible APIs
+  //     signatureVersion: "v4", // Use AWS v4 signature authentication
+  //     sslEnabled: true,
+  //   });
+  //   const params = {
+  //     Bucket: "my-bucket",
+  //     Key: "data-backup.json", // Change to your preferred file name and extension
+  //     Body: dataString
+  //   };
+  //   // Upload file to S3 bucket
+  //   s3.putObject(params, (err) => {
+  //     if (err) {
+  //       console.log(err);
+  //     } else {
+  //       console.log("Data backup uploaded successfully.");
+  //     }
+  //   });
+  // }
 
   async function loadWaste() {
     /* create a generic provider and query for Wastes */
@@ -130,7 +129,7 @@ export default function Sender() {
       signer
     );
     /* user will be prompted to pay the asking proces to complete the transaction */
-    await BackupToOorts();
+    // await BackupToOorts();
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     const transaction = await contract.createMarketSale(nft.tokenId, {
       value: price,
